@@ -1,1 +1,13 @@
-<h1>Tasks Index</h1>
+<h1>My tasks</h1>
+
+<% @tasks.each do |task| %>
+  <div>
+    <input type="checkbox" id=<%= task.title %> name=<%= task.title %>
+      <%# check_box_tag :show_hometown , 1 , task.complete ? false : true %>>
+    <a href="tasks/<%=task.id%>">
+      <label for=<%= task.title %>><%= task.title %></label>
+    </a>
+  </div>
+<% end %>
+<br>
+<%= link_to "+ add a task", tasks_new_path %>
