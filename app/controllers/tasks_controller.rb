@@ -3,12 +3,10 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all
-    # raise
   end
 
   def show
-    @task = Task.find(params[:id])
-    # raise
+    @task = set_task
   end
 
   def new
@@ -20,7 +18,25 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     @task.save
     # No need for app/views/tasks/create.html.erb
-    redirect_to tasks_path(@task)
+    redirect_to tasks_path
+  end
+
+  def edit
+    @task = set_task
+  end
+
+  def update
+    @task = set_task
+    @task.update(task_params)
+    # No need for app/views/tasks/update.html.erb
+    redirect_to task_path(@task)
+  end
+
+  def destroy
+    @task = set_task
+    @task.destroy
+    # No need for app/views/tasks/destroy.html.erb
+    redirect_to tasks_path, status: :see_other
   end
 
   private
@@ -30,7 +46,7 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :details, :completed)
   end
 
-  # def set_task
-  #   @task = Task.find(params[:id])
-  # end
+  def set_task
+    @task = Task.find(params[:id])
+  end
 end

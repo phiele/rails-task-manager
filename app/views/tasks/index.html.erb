@@ -2,12 +2,16 @@
 
 <% @tasks.each do |task| %>
   <div>
-    <input type="checkbox" id=<%= task.title %> name=<%= task.title %>
-      <%# check_box_tag :show_hometown , 1 , task.complete ? false : true %>>
-    <a href="tasks/<%=task.id%>">
-      <label for=<%= task.title %>><%= task.title %></label>
-    </a>
+    <%= check_box_tag "checkbox", 1, task.completed ? true : false %>
+    <%= link_to task.title, task_path(task.id) %>
+    <%= link_to task_path(task.id), data: {turbo_method: :delete, turbo_confirm: "Delete #{task.title}?"} do %>
+      <i class="fa-regular fa-trash-can"></i>
+    <% end %>
   </div>
 <% end %>
 <br>
-<%= link_to "+ add a task", tasks_new_path %>
+<%= link_to "+ Add a new task", new_task_path %>
+
+<%# link_to new_task_path do %>
+  <%# <i class="fa-solid fa-plus"></i> Add a new task %>
+<%# end %>
